@@ -37,16 +37,24 @@ public class Principal {
                         escritor.println(datos);
                         datosEntrada = lector.readLine();
                         System.out.println(datosEntrada);
-                    } catch (Exception e) {
-                        System.out.println("error al mandar mensaje");
+                        //cerrarSocket(socket);
+                    } catch (IOException e) {
+                        System.out.println("error al mandar mensaje"+e);
                     }
                 }
-            } catch (Exception ex) {
+            } catch (IOException ex) {
                 System.out.println("Error al crear lector" + ex);
             }
 
         } catch (IOException ex) {
             System.out.println("Error al crear escrito " + ex);
+        }
+    }
+      public static void cerrarSocket(Socket socket){
+        try {
+        socket.close();
+        } catch (Exception e) {
+          System.out.println("Error al cerrar sockets "+e);
         }
     }
 

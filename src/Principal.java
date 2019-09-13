@@ -1,61 +1,14 @@
 
-
-
-import java.io.*;
-import java.net.*;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-
 public class Principal {
 
-    
-    public static void main(String[] args)throws Exception{
-       CrearCliente();
-    }
-    public static void CrearCliente(){
+    public static void main(String[] args) throws Exception {
         try {
-         Socket socket =new Socket("127.0.0.1",2500);
-          EscribirCliente(socket);
+            Cliente cliente = new Cliente(args[0], args[1]);
+            cliente.CrearCliente();
         } catch (Exception e) {
-          System.out.println("Error al crear socket del cliente "+e);
+            System.out.println("Error al iniciar el cliente " + e);
         }
-    }
-    public static void EscribirCliente(Socket socket) {
-        PrintWriter escritor;
-        try {
-            escritor = new PrintWriter(socket.getOutputStream(), true);
-            try {
-                BufferedReader lector = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                String datos;
-                String datosEntrada;
-                Scanner scanner = new Scanner(System.in);
-                while (true) {
-                    datos = scanner.nextLine();
-                    try {
-                        escritor.println(datos);
-                        datosEntrada = lector.readLine();
-                        System.out.println(datosEntrada);
-                        //cerrarSocket(socket);
-                    } catch (IOException e) {
-                        System.out.println("error al mandar mensaje"+e);
-                    }
-                }
-            } catch (IOException ex) {
-                System.out.println("Error al crear lector" + ex);
-            }
 
-        } catch (IOException ex) {
-            System.out.println("Error al crear escrito " + ex);
-        }
-    }
-      public static void cerrarSocket(Socket socket){
-        try {
-        socket.close();
-        } catch (Exception e) {
-          System.out.println("Error al cerrar sockets "+e);
-        }
     }
 
 }
